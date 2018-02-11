@@ -28,11 +28,15 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['menu_menu'] = 'Menü';
-$lang['menu_more'] = 'Mehr';
-$lang['menu_news'] = 'Neuigkeiten';
-$lang['menu_home'] = 'Hauptseite';
-$lang['menu_support'] = 'Support';
-$lang['menu_login'] = 'Login';
+/*Navigation Menu*/
+$lang['nav_menu'] = 'Menü';
+$lang['nav_more'] = 'Mehr';
+$lang['nav_news'] = 'Neuigkeiten';
+$lang['nav_forums'] = 'Foren';
+$lang['nav_store'] = 'Shop';
+$lang['nav_bugtracker'] = 'Bugtracker';
+$lang['nav_changelogs'] = 'Changelogs';
+$lang['nav_pvp_statistics'] = 'PvP-Statistik';
+$lang['nav_arena_statistics'] = 'Arena-Statistik';
 
-$lang['my_account'] = 'Mein Account';
+$lang['nav_account'] = 'Mein Account';

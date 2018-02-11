@@ -1,3 +1,14 @@
+<?php 
+/**
+ * Automatic Redirection
+ */
+if (!file_exists("application/config/config.php") && !file_exists("application/config/fixcore.php"))
+{
+    header("Location: install");
+    die();
+}
+?>
+
 <?php
 /**
  * CodeIgniter

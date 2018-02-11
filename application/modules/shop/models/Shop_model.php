@@ -128,10 +128,16 @@ class Shop_model extends CI_Model {
             redirect(base_url('store'),'refresh');
     }
 
-    public function getShopGeneral()
+    public function getShopGeneral($id)
     {
-        return $this->db->select('*')
+        if($id != '' && $id != '0') {
+            return $this->db->select('*')
+                ->where('groups', $id)
                 ->get('fx_shop');
+        } else {
+            return $this->db->select('*')
+                ->get('fx_shop');
+        }
     }
 
     public function getShopGeneralGP($id)
@@ -155,15 +161,15 @@ class Shop_model extends CI_Model {
                 ->row_array()['name'];
     }
 
-    public function insertHistory($idshop, $itemid, $accountid, $charid, $method, $price)
+    public function insertHistory($idshop, $itemid, $accountid, $charid, $method, $price, $soapUser, $soapPass, $soapHost, $soapPort, $soap_uri, $multirealm)
     {
         $date = $this->m_data->getTimestamp();
 
-        $getCharName = $this->m_general->getNameCharacterSpecifyGuid($charid);
+        $getCharName = $this->m_general->getNameCharacterSpecifyGuid($multirealm, $charid);
         $subject = $this->lang->line('store_senditem_subject');
         $message = $this->lang->line('store_senditem_text');
 
-        $this->m_soap->commandSoap('.send items '.$getCharName.' "'.$subject.'" "'.$message.'" '.$itemid);
+        $this->m_soap->commandSoap('.send items '.$getCharName.' "'.$subject.'" "'.$message.'" '.$itemid, $soapUser, $soapPass, $soapHost, $soapPort, $soap_uri);
 
         $data = array(
             'idshop' => $idshop,
@@ -174,16 +180,12 @@ class Shop_model extends CI_Model {
             'method' => $method,
             );
 
-        $this->auth->insert('fx_shop_history', $data);
+        $this->db->insert('fx_shop_history', $data);
 
         if ($method == "dp")
-            $this->db->set('dp', '(dp - $price)')
-                ->where('accountid', $accountid)
-                ->update('fx_credits');
+            $this->db->query("UPDATE fx_credits SET dp = (dp-$price) WHERE accountid = $accountid");
         else
-            $this->db->set('vp', '(vp - $price)')
-                ->where('accountid', $accountid)
-                ->update('fx_credits');
+            $this->db->query("UPDATE fx_credits SET vp = (vp-$price) WHERE accountid = $accountid");
 
         redirect(base_url('store?complete'),'refresh');
     }

@@ -1,54 +1,34 @@
-<?php if (isset($_POST['buyNowGetItem'])) {
-    $charselect = $_POST['charSelects'];
-
-    $method = $_GET['tp'];
-    $price = $this->shop_model->getPriceType($idlink, $_GET['tp']);
-
-    $this->shop_model->insertHistory(
-        $idlink, 
-        $this->shop_model->getItem($idlink), 
-        $this->session->userdata('fx_sess_id'), 
-        $charselect, 
-        $method,
-        $price);
-} ?>
-
 <!DOCTYPE html>
 <html>
-<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
 <head>
-    <title><?= $this->config->item('ProjectName'); ?> - <?= $this->lang->line('cart'); ?></title>
-    <script src="<?= base_url(); ?>assets/js/9013706011.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/blizzard-dc9d0faea4c4a01c35477637614e4bbab87305d0b07b1dfb8e0f09a21283294707def12b40e4cb9f13b56d8cbd92e8b40a3c956f0da1b5cf1d25b558efeffc31.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/app-65d540bb92d74ad1518ba050a969a68fe7cca3e0b202351c63b7742d39e87267a3bd8210f6a567b4b05819727690c48601a94036e4e498deb0519f50edb50a65.css">
-    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url(); ?>assets/css/main-1f799c9e0f0e26.css?v=58-88" />
+    <title><?= $this->config->item('ProjectName'); ?> | <?= $this->lang->line('cart'); ?></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="<?= base_url(); ?>assets/images/favicon.ico">
-    <!-- UiKit Start -->
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="<?= base_url(); ?>core/uikit/css/uikit.min.css" />
 
-    <!-- UIkit JS -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/blizzcms-general.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/blizzcms-app.css">
+    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url('assets/css/blizzcms-template.css') ?>"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url('theme/'); ?><?= $this->config->item('theme_name'); ?>/css/<?= $this->config->item('theme_name'); ?>.css"/>
+
+    <!-- UIkit -->
+    <link rel="stylesheet" href="<?= base_url(); ?>core/uikit/css/uikit.min.css"/>
     <script src="<?= base_url(); ?>core/uikit/js/uikit.min.js"></script>
     <script src="<?= base_url(); ?>core/uikit/js/uikit-icons.min.js"></script>
-    <!-- UiKit end -->
-    <!-- font-awesome Start -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- font-awesome End -->
-    <!-- custom START -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>assets/css/scroll.css">
-    <!-- custom END -->
-    <!-- Wowhead START -->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?= base_url(); ?>core/font-awesome/css/font-awesome.min.css">
+
+    <!-- Wowhead -->
     <script>var whTooltips = {colorLinks: true, iconizeLinks: false, renameLinks: false};</script>
     <script type="text/javascript" src="//wow.zamimg.com/widgets/power.js"></script>
-    <!-- Wowhead START -->
-    <!-- custom footer -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <!-- custom footer -->
+
+    <!-- JQuery -->
+    <script src="<?= base_url(); ?>core/js/jquery-3.3.1.min.js"></script>
 </head>
 
-<body class="en-us Theme--<?= $this->m_general->getTheme(); ?> glass-header preload" lang="en" data-locale="en-gb" data-device="desktop" data-name="index">
+<body class="en-us <?= $this->config->item('theme_name'); ?> glass-header preload" lang="en" data-locale="en-gb" data-device="desktop" data-name="index">
     <!-- header -->
     <?php $this->load->view('general/icons'); ?>
     <!-- submenu -->
@@ -72,9 +52,9 @@
                         <!-- logged -->
                         <?php if ($this->m_data->isLogged()) { ?>
                             <!-- credits -->
-                            <img class="uk-border-circle" src="<?= base_url('assets/images/dp.jpg'); ?>" title="Donor Points" width="20px" height="20px" uk-tooltip="pos: bottom"><span class="uk-badge"><?= $this->m_general->getCharDPTotal($this->session->userdata('fx_sess_id')); ?></span>
+                            <img class="uk-border-circle" src="<?= base_url('assets/images/dp.jpg'); ?>" title="<?=$this->lang->line('panel_dp');?>" width="20px" height="20px" uk-tooltip="pos: bottom"><span class="uk-badge"><?= $this->m_general->getCharDPTotal($this->session->userdata('fx_sess_id')); ?></span>
                             |
-                            <img class="uk-border-circle" src="<?= base_url('assets/images/vp.jpg'); ?>" title="Voter Points" width="20px" height="20px" uk-tooltip="pos: bottom"><span class="uk-badge"><?= $this->m_general->getCharVPTotal($this->session->userdata('fx_sess_id')); ?></span>
+                            <img class="uk-border-circle" src="<?= base_url('assets/images/vp.jpg'); ?>" title="<?=$this->lang->line('panel_vp');?>" width="20px" height="20px" uk-tooltip="pos: bottom"><span class="uk-badge"><?= $this->m_general->getCharVPTotal($this->session->userdata('fx_sess_id')); ?></span>
                             <!-- credits -->
                         <?php } ?>
                         <!-- logged -->
@@ -91,8 +71,9 @@
     <br><br><br>
     <div role="main">
         <section class="Scm-content">
+        <form action="" method="post" accept-charset="utf-8">
             <div class="section">
-                <h2 style="color: #fff;"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy Item: <a rel="item=<?= $this->shop_model->getItem($idlink); ?>"><?= $this->shop_model->getName($idlink); ?></a></h2>
+                <h2 style="color: #fff;"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <?=$this->lang->line('store_cart_description');?>: <a rel="item=<?= $this->shop_model->getItem($idlink); ?>"><?= $this->shop_model->getName($idlink); ?></a></h2>
                 <p></p>
                 <div class="uk-margin uk-text-center">
                     <div class="uk-inline">
@@ -100,28 +81,32 @@
                             <img class="uk-border-rounded" src="//wow.zamimg.com/images/wow/icons/large/<?= $this->shop_model->getIcon($idlink) ?>.jpg" />
                         </a>
                     </div>
-                    <p><i class="fa fa-info-circle" aria-hidden="true"></i> Item Name: <?= $this->shop_model->getName($idlink); ?></p>
+                    <p><i class="fa fa-info-circle" aria-hidden="true"></i> <?=$this->lang->line('store_item_name');?>: <?= $this->shop_model->getName($idlink); ?></p>
                 </div>
                 <div class="uk-margin uk-text-center">
-                    <p><i class="fa fa-list-ul" aria-hidden="true"></i> Select Character:</p>
+                    <p><i class="fa fa-list-ul" aria-hidden="true"></i> <?=$this->lang->line('store_select_character');?>:</p>
                     <div class="uk-inline">
                         <div class="uk-form-controls">
                             <select class="uk-select uk-form-width-medium uk-form-small" name="charSelects">
-                                <?php foreach($this->m_general->getGeneralCharactersSpecifyAcc($this->session->userdata('fx_sess_id'))->result() as $listchar) { ?>
-                                    <option value="<?= $listchar->guid ?>"><?= $listchar->name ?> - <?= $listchar->level ?></option>
+                            <?php foreach ($this->m_data->getRealms()->result() as $charsMultiRealm) { 
+                                $multiRealm = $this->m_data->realmConnection($charsMultiRealm->username, $charsMultiRealm->password, $charsMultiRealm->hostname, $charsMultiRealm->char_database);
+                            ?>
+                                <?php foreach($this->m_general->getGeneralCharactersSpecifyAcc($multiRealm ,$this->session->userdata('fx_sess_id'))->result() as $listchar) { ?>
+                                    <option value="<?= $charsMultiRealm->realmID ?>|<?= $listchar->guid ?>"><?= $listchar->name ?> - <?= $this->m_general->getRealmName($charsMultiRealm->realmID); ?></option>
                                 <?php } ?>
+                            <?php } ?>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="uk-margin uk-text-center">
-                    <p><i class="fa fa-money" aria-hidden="true"></i> Price:</p>
+                    <p><i class="fa fa-money" aria-hidden="true"></i> <?=$this->lang->line('store_item_price');?>:</p>
                     <div class="uk-inline">
                         <h4>
                             <?php if($_GET['tp'] == "dp"): ?>
-                                <img class="uk-border-circle" src="<?= base_url('assets/images/dp.jpg'); ?>" title="Donor Points" width="30px" height="30px" uk-tooltip="pos: bottom">
+                                <img class="uk-border-circle" src="<?= base_url('assets/images/dp.jpg'); ?>" title="<?=$this->lang->line('panel_dp');?>" width="30px" height="30px" uk-tooltip="pos: bottom">
                             <?php else: ?>
-                                <img class="uk-border-circle" src="<?= base_url('assets/images/vp.jpg'); ?>" title="Voter Points" width="30px" height="30px" uk-tooltip="pos: bottom">
+                                <img class="uk-border-circle" src="<?= base_url('assets/images/vp.jpg'); ?>" title="<?=$this->lang->line('panel_vp');?>" width="30px" height="30px" uk-tooltip="pos: bottom">
                             <?php endif; ?>
                             <span class="uk-badge"><?= $this->shop_model->getPriceType($idlink, $_GET['tp']); ?></span>
                         </h4>
@@ -134,12 +119,43 @@
                         $qqs = $this->m_general->getCharVPTotal($this->session->userdata('fx_sess_id'));
                     ?>
                     <?php if ($qqs >= $this->shop_model->getPriceType($idlink, $_GET['tp'])) { ?>
-                        <button type="submit" name="buyNowGetItem" class="button" title="<?= $this->lang->line('button_buy'); ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <?= $this->lang->line('button_buy'); ?></button>
+                            <button type="submit" name="buyNowGetItem" class="button" title="<?= $this->lang->line('button_buy'); ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <?= $this->lang->line('button_buy'); ?></button>
                     <?php } else { ?>
                         <div class="uk-alert-warning" uk-alert><p><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <?=$this->lang->line('points_insuff');?></p></div>
                     <?php } ?>
                     <!--<button class="button" title=""><i class="fa fa-gift" aria-hidden="true"></i> Gift</button>-->
                 </div>
             </div>
+           </form>
         </section>
     </div>
+
+
+
+<?php if (isset($_POST['buyNowGetItem'])) {
+    $charselect = $_POST['charSelects'];
+
+    $method = $_GET['tp'];
+    $price = $this->shop_model->getPriceType($idlink, $_GET['tp']);
+    $result_explode = explode('|', $charselect);
+
+    $soapUser = $this->m_data->getRealm($result_explode[0])->row_array()['console_username'];
+    $soapPass = $this->m_data->getRealm($result_explode[0])->row_array()['console_password'];
+    $soapHost = $this->m_data->getRealm($result_explode[0])->row_array()['hostname'];
+    $soapPort = $this->m_data->getRealm($result_explode[0])->row_array()['console_port'];
+    $soap_uri = $this->m_data->getRealm($result_explode[0])->row_array()['emulator'];
+
+    $this->shop_model->insertHistory(
+        $idlink, 
+        $this->shop_model->getItem($idlink), 
+        $this->session->userdata('fx_sess_id'), 
+        $result_explode[1], 
+        $method,
+        $price,
+        $soapUser, 
+        $soapPass, 
+        $soapHost, 
+        $soapPort, 
+        $soap_uri,
+        $multiRealm);
+} ?>

@@ -13,6 +13,16 @@ $config['ProjectName'] = "ProjectName_fixcore";
 
 /*
 |--------------------------------------------------------------------------
+| Timezone
+|--------------------------------------------------------------------------
+|
+| http://php.net/manual/en/timezones.php
+|
+*/
+$config['timezone'] = "GMT";
+
+/*
+|--------------------------------------------------------------------------
 | Maintenance Mode
 |--------------------------------------------------------------------------
 |
@@ -57,34 +67,6 @@ $config['staff_forum_color'] = "00b4ff";
 
 /*
 |--------------------------------------------------------------------------
-| SOAP Configuration
-|--------------------------------------------------------------------------
-|
-| 'soap_ip' Server IP
-| 'soap_user' Account with GM permission
-| 'soap_pass' Password used in the GM account
-| 'soap_port' Default port 7878 (If you use another port change it)
-| 'soap_type' Default TC (only support Trinitycore)
-|
-*/
-$config['soap_ip'] = "ProjectSoapIP_fixcore";
-$config['soap_user'] = "ProjectSoapUsername_fixcore";
-$config['soap_pass'] = "ProjectSoapPass_fixcore";
-$config['soap_port'] = "ProjectSoapPort_fixcore";
-$config['soap_type'] = "TC";
-
-/*
-|--------------------------------------------------------------------------
-| Server Status
-|--------------------------------------------------------------------------
-|
-| Port used to know the status of the server.
-|
-*/
-$config['realmlistPort'] = "ProjectRealmPort_fixcore";
-
-/*
-|--------------------------------------------------------------------------
 | Expansion Supported
 |--------------------------------------------------------------------------
 |
@@ -107,18 +89,9 @@ $config['expansion_id'] = "ProjectExpansion_fixcore";
 | Theme Name
 |--------------------------------------------------------------------------
 |
-| Select the expansion that your website will use among these options:
-|
-| 1 = zwolf
-| 2 = alterac
-| 3 = thranrion
-| 4 = fixcore
-| 5 = theme2
-| 6 = blizzcms
-| 7 = uncrowned
-| 8 = xavius
-| 9 = exile
-| 
-| Default: 4
+| Write the name of your theme
+| The name is the same as the main folder
+| The css must also have the same name
+| Default: default
 */
-$config['themeid'] = "4";
+$config['theme_name'] = "default";

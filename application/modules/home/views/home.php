@@ -1,36 +1,33 @@
 <!DOCTYPE html>
 <html>
-<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
 <head>
-    <title><?= $this->config->item('ProjectName'); ?> - <?= $this->lang->line('home'); ?></title>
-    <script src="<?= base_url(); ?>assets/js/9013706011.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/blizzard-dc9d0faea4c4a01c35477637614e4bbab87305d0b07b1dfb8e0f09a21283294707def12b40e4cb9f13b56d8cbd92e8b40a3c956f0da1b5cf1d25b558efeffc31.css">
-    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/app-65d540bb92d74ad1518ba050a969a68fe7cca3e0b202351c63b7742d39e87267a3bd8210f6a567b4b05819727690c48601a94036e4e498deb0519f50edb50a65.css">
-    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url(); ?>assets/css/main-1f799c9e0f0e26.css?v=58-88" />
+    <title><?= $this->config->item('ProjectName'); ?></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="<?= base_url(); ?>assets/images/favicon.ico">
-    <!-- UiKit Start -->
-    <!-- UIkit CSS -->
-    <link rel="stylesheet" href="<?= base_url(); ?>core/uikit/css/uikit.min.css" />
 
-    <!-- UIkit JS -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/blizzcms-general.css">
+    <link rel="stylesheet" href="<?= base_url(); ?>assets/css/blizzcms-app.css">
+    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url('assets/css/blizzcms-template.css') ?>"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<?= base_url('theme/'); ?><?= $this->config->item('theme_name'); ?>/css/<?= $this->config->item('theme_name'); ?>.css"/>
+
+    <!-- UIkit -->
+    <link rel="stylesheet" href="<?= base_url(); ?>core/uikit/css/uikit.min.css"/>
     <script src="<?= base_url(); ?>core/uikit/js/uikit.min.js"></script>
     <script src="<?= base_url(); ?>core/uikit/js/uikit-icons.min.js"></script>
-    <!-- UiKit end -->
-    <!-- font-awesome Start -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- font-awesome End -->
-    <!-- custom START -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>assets/css/scroll.css">
-    <!-- custom END -->
-    <link href="https://api.dkamps18.net/css/font/discord/discord.css" rel="stylesheet"  type="text/css">
-    <!-- custom footer -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <!-- custom footer -->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="<?= base_url(); ?>core/font-awesome/css/font-awesome.min.css">
+
+    <!-- Discord -->
+    <link rel="stylesheet" href="<?= base_url(); ?>core/discord/discord.css">
+
+    <!-- JQuery -->
+    <script src="<?= base_url(); ?>core/js/jquery-3.3.1.min.js"></script>
 </head>
 
-<body class="en-us Theme--<?= $this->m_general->getTheme(); ?> glass-header preload" lang="en" data-locale="en-gb" data-device="desktop" data-name="index">
+<body class="en-us <?= $this->config->item('theme_name'); ?> glass-header preload" lang="en" data-locale="en-gb" data-device="desktop" data-name="index">
     <!-- header -->
     <?php $this->load->view('general/icons'); ?>
     <!-- submenu -->
@@ -39,11 +36,11 @@
     </div>
     <!-- submenu -->
     <div class="Page-container">
-        <div class="Page-content en-GB">
+        <div class="Page-content en-US">
             <div id="home-promoted-carousel-container" class="position-relative">
                 <?php if ($this->m_modules->getStatusSlides() == '1') { ?>
                     <?php if ($this->home_model->getSlides()->num_rows()) { ?>
-                        <div data-in="0" data-out="0" data-scroll="#home-promoted-scroll" data-analytics="arrowClick" data-analytics-placement="Home" class="Carousel Carousel--fullHg Carousel--fill is-infinite" id="home-promoted-carousel">
+                        <div data-in="0" data-out="0" data-lockout="500" data-scroll="#home-promoted-scroll" data-analytics="arrowClick" data-analytics-placement="Home" class="Carousel Carousel--fullHg Carousel--fill is-infinite" id="home-promoted-carousel">
                             <div class="Carousel-container">
                                 <link href="https://fonts.googleapis.com/css?family=Noto+Serif" rel="stylesheet">
                                 <!-- slides start -->
@@ -52,14 +49,14 @@
                                         <div class="CarouselItem-content">
                                             <div class="Pane Pane--full Pane--adaptiveHg Home-heroPane">
                                                 <div class="Pane-backgroundContainer">
-                                                    <div style="background-color:#031424" class="Home-promotedStoriesBackgroundContainer">
+                                                    <div style="background-color:#001619" class="Home-promotedStoriesBackgroundContainer">
                                                         <div style="background-image:url(<?= base_url(); ?>assets/images/slides/<?= $slides->mobile_image; ?>)" class="Home-promotedStoriesMobileBackground Home-promotedStoriesBackground"></div>
                                                         <div style="background-image:url(<?= base_url(); ?>assets/images/slides/<?= $slides->image; ?>)" class="Home-promotedStoriesDesktopBackground Home-promotedStoriesBackground"></div>
                                                         <div class="Home-heroPaneGradients">
-                                                            <div style="background:linear-gradient(to top, rgba(3,20,36, 1.0) 0%, rgba(3,20,36, 1.0) 20%, rgba(3,20,36, 0.0) 100%)" class="Home-heroPaneMobileGradient Home-heroPaneGradient"></div>
+                                                            <div style="background:linear-gradient(to top, rgba(0,22,25, 1.0) 0%, rgba(0,22,25, 1.0) 20%, rgba(0,22,25, 0.0) 100%)" class="Home-heroPaneMobileGradient Home-heroPaneGradient"></div>
                                                             <div class="Home-heroPaneDesktopGradients Home-heroPaneGradient">
-                                                                <div style="background:linear-gradient(to right, rgba(3,20,36, 1.0) 0%, rgba(3,20,36, 1.0) 20%, rgba(3,20,36, 0.0) 100%)" class="Home-heroPaneDesktopLeftGradient"></div>
-                                                                <div style="background:linear-gradient(to left, rgba(3,20,36, 1.0) 0%, rgba(3,20,36, 1.0) 20%, rgba(3,20,36, 0.0) 100%)" class="Home-heroPaneDesktopRightGradient"></div>
+                                                                <div style="background:linear-gradient(to right, rgba(0,22,25, 1.0) 0%, rgba(0,22,25, 1.0) 20%, rgba(0,22,25, 0.0) 100%)" class="Home-heroPaneDesktopLeftGradient"></div>
+                                                                <div style="background:linear-gradient(to left, rgba(0,22,25, 1.0) 0%, rgba(0,22,25, 1.0) 20%, rgba(0,22,25, 0.0) 100%)" class="Home-heroPaneDesktopRightGradient"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -71,10 +68,16 @@
                                                     <div class="Home-heroPaneInner">
                                                         <div class="Pane Pane--flush Pane--adaptiveHg">
                                                             <div style="" class="Pane-content">
+                                                                <div data-group="homePromotedCarousel" data-viewport="0" data-anchor="0" data-anchor-target="#home-promoted-carousel-container" data-distance="0.35" data-opacity="0.005" class="Parallax Home-heroLogo">
+                                                                    <div style="background-image:undefined;background-color:undefined" class="Parallax-content">
+                                                                        <img src="" alt="" class="Home-heroLogoImage"/>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="space-adaptive-medium"></div>
                                                                 <div data-group="homePromotedCarousel" data-viewport="0" data-anchor="0" data-anchor-target="#home-promoted-carousel-container" data-distance="0.125" class="Parallax Home-heroTextParallax">
                                                                     <div style="background-image:undefined;background-color:undefined" class="Parallax-content">
-                                                                        <h3 class="text-truncate-ellipsis Home-heroTitle text-shadow-title" style="font-family: 'Noto Serif', serif; color: #fff;"><?= $slides->title ?></h3>
+                                                                        <h3 class="Home-heroTitle text-shadow-title" style="font-family: 'Noto Serif', serif; color: #fff;"><?= $slides->title ?></h3>
+                                                                        <div class="Home-heroButtonContainer"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -89,16 +92,12 @@
                                 <!-- icons slides start -->
                                 <div class="Carousel-scroll Carousel-prev">
                                     <div class="Icon Carousel-scrollIcon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" class="Icon-svg">
-                                            <use xlink:href="#Icon_chevron_left"></use>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" class="Icon-svg"><use xlink:href="#Icon_chevron_left"></use></svg>
                                     </div>
                                 </div>
                                 <div class="Carousel-scroll Carousel-next">
                                     <div class="Icon Carousel-scrollIcon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" class="Icon-svg">
-                                            <use xlink:href="#Icon_chevron_right"></use>
-                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64" class="Icon-svg"><use xlink:href="#Icon_chevron_right"></use></svg>
                                     </div>
                                 </div>
                                 <!-- icons slides end -->
@@ -130,8 +129,8 @@
                             <div class="GridItem col-md-8">
                                 <h2 class="Heading Home-topStoriesHeading Home-sectionHeading flush-top">
                                     <a href="<?= base_url('news'); ?>" data-analytics="action-link" data-analytics-placement="<?= $this->lang->line('all_news'); ?>" class="Home-topStoriesHeadingLink Home-sectionHeadingLink">
-                                        <span class="Home-topStoriesHeadingText Home-sectionHeadingText"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <?= $this->lang->line('last_news'); ?></span>
-                                        <span class="Home-topStoriesHeadingLinkText Home-sectionHeadingLinkText"><?= $this->lang->line('all_news'); ?></span>
+                                        <span class="Home-topStoriesHeadingText Home-sectionHeadingText"><i class="fa fa-newspaper-o" aria-hidden="true"></i> <?= $this->lang->line('home_latest_news'); ?></span>
+                                        <span class="Home-topStoriesHeadingLinkText Home-sectionHeadingLinkText"><?= $this->lang->line('home_all_news'); ?></span>
                                     </a>
                                 </h2>
                                 <div class="Divider Divider--light"></div>
@@ -148,7 +147,7 @@
                                                             <div class="Heading Heading--gridSubtitle Home-topStoriesFeaturedSubtitle">News</div>
                                                             <div class="Heading Heading--gridTitle Home-topStoriesFeaturedTitle"><?= $principalNew->title; ?></div>
                                                             <div class="space-medium"></div>
-                                                            <button class="Button Button--small Home-topStoriesFeaturedButton"><?= $this->lang->line('button_learnmore'); ?></button>
+                                                            <button class="Button Button--small Home-topStoriesFeaturedButton"><?= $this->lang->line('button_learn_more'); ?></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,48 +184,53 @@
                             </div>
                         <?php } ?>
                         <div class="GridItem col-md-4">
-                            <h2 class="Heading Home-topStoriesHeading Home-sectionHeading flush-top" style="color: #fff;"><i class="fa fa-server" aria-hidden="true"></i> <?=$this->lang->line('serv_status');?></h2>
+                            <h2 class="Heading Home-topStoriesHeading Home-sectionHeading flush-top" style="color: #fff;"><i class="fa fa-server" aria-hidden="true"></i> <?=$this->lang->line('home_server_status');?></h2>
+                            <!-- realmlist -->
+                            <div class="label">
+                                <h4 style="color: #fff;">
+                                    <?php if ($this->m_general->getExpansionAction() == 1) { ?>
+                                        <i class="fa fa-gamepad" aria-hidden="true"></i> Set Realmlist <?= $this->config->item('realmlist'); ?></h4>
+                                    <?php } else { ?>
+                                        <i class="fa fa-gamepad" aria-hidden="true"></i> Set Portal "<?= $this->config->item('realmlist'); ?>"</h4>
+                                    <?php } ?>
+                            </div>
+                            <!-- realmlist -->
                             <div class="Divider Divider--light"></div>
                             <div class="Home-topStories">
                                 <div class="Home-topStoriesFeatured">
                                     <?php if ($this->m_modules->getStatusNews() == '1') { ?>
-                                        <a data-analytics="panel-<?=$this->lang->line('serv_status');?>" data-analytics-panel="slot:1 - size:lg" class="Home-topStoriesFeaturedLink">
+                                        <a data-analytics="panel-<?=$this->lang->line('home_server_status');?>" data-analytics-panel="slot:1 - size:lg" class="Home-topStoriesFeaturedLink">
                                             <div data-ratio='0.5' data-offset='0' class="Card Home-topStoriesGallery Card--innerBorder Card--transparent is-adaptive">
                                                 <div class="Home-additionalLinks clearfix">
-                                                    <!--<h3 style="color: #fff;"><?= $this->m_soap->getRealmStatus(); ?></h3> online -->
                                                     <div class="">
+                                                    <?php foreach ($this->m_data->getRealms()->result() as $charsMultiRealm) { 
+                                                        $multiRealm = $this->m_data->realmConnection($charsMultiRealm->username, $charsMultiRealm->password, $charsMultiRealm->hostname, $charsMultiRealm->char_database); 
+                                                    ?>
                                                         <div class="GridItem col-md-12">
                                                             <h2 style="color: #fff;">
-                                                                <?php if ($this->m_data->realm_status()) { ?>
+                                                                <?php if ($this->m_data->realm_status($charsMultiRealm->realmID, $charsMultiRealm->hostname)) { ?>
                                                                     <i class="fa fa-circle-o-notch fa-spin fa-fw uk-text-success" aria-hidden="true"></i>
                                                                 <?php } else { ?>
                                                                     <i class="fa fa-circle-o-notch fa-spin fa-fw uk-text-danger" aria-hidden="true"></i>
                                                                 <?php } ?>
-                                                                <?= $this->m_general->getRealmName(); ?>
+                                                                <?= $this->m_general->getRealmName($charsMultiRealm->realmID); ?>
                                                             </h2>
-                                                            <?php if ($this->m_data->realm_status()) { ?>
+                                                            <?php if ($this->m_data->realm_status($charsMultiRealm->realmID, $charsMultiRealm->hostname)) { ?>
                                                                 <span class="uk-label">
                                                                     <span uk-icon="icon: users"></span>
-                                                                    <?= $this->m_general->getCharactersOnlineAlliance(); ?>
+                                                                    <?= $this->m_general->getCharactersOnlineAlliance($multiRealm); ?>
                                                                     <?= $this->lang->line('faction_alliance'); ?>
                                                                 </span>
                                                                 <span class="uk-label uk-label-danger">
                                                                     <span uk-icon="icon: users"></span>
-                                                                    <?= $this->m_general->getCharactersOnlineHorde(); ?>
+                                                                    <?= $this->m_general->getCharactersOnlineHorde($multiRealm); ?>
                                                                     <?= $this->lang->line('faction_horde'); ?>
                                                                 </span>
                                                                 <br>
                                                             <?php } ?>
-                                                            <div class="label">
-                                                                <h4 style="color: #fff;">
-                                                                <?php if ($this->m_general->getExpansionAction() == 1) { ?>
-                                                                    <i class="fa fa-gamepad" aria-hidden="true"></i> Set Realmlist <?= $this->config->item('realmlist'); ?></h4>
-                                                                <?php } else { ?>
-                                                                    <i class="fa fa-gamepad" aria-hidden="true"></i> Set Portal "<?= $this->config->item('realmlist'); ?>"</h4>
-                                                                <?php } ?>
-                                                            </div>
                                                         </div>
                                                     </div>
+                                                <?php } ?>
                                                     <!-- online -->
                                                 </div>
                                             </div>
@@ -234,10 +238,10 @@
                                     <?php } ?>
                                     <?php if ($this->m_modules->getStatusDiscordExperimental() == '1') { ?>
                                         <!-- discord -->
-                                        <a target="_blank" href="https://discord.gg/<?= $this->home_model->getDiscordInfo()['code'] ?>" data-analytics="panel-<?=$this->lang->line('serv_status');?>" data-analytics-panel="slot:1 - size:lg" class="Home-topStoriesFeaturedLink">
+                                        <a target="_blank" href="https://discord.gg/<?= $this->home_model->getDiscordInfo()['code'] ?>" data-analytics="panel-<?=$this->lang->line('home_server_status');?>" data-analytics-panel="slot:1 - size:lg" class="Home-topStoriesFeaturedLink">
                                             <div data-ratio='0.5' data-offset='0' class="Card Home-topStoriesGallery Card--innerBorder Card--transparent is-adaptive">
                                                 <div class="Home-additionalLinks clearfix">
-                                                    <!--<h3 style="color: #fff;"><?=$this->lang->line('discord');?></h3> online -->
+                                                    <!--<h3 style="color: #fff;"><?=$this->lang->line('home_discord');?></h3> online -->
                                                     <div class="">
                                                         <div class="GridItem col-md-12">
                                                             <!-- image -->
@@ -266,7 +270,7 @@
                                     <?php } ?>
                                     <?php if ($this->m_modules->getStatusDiscordClassic() == '1') { ?>
                                         <!-- discord classic -->
-                                        <a target="_blank" href="https://discord.gg/<?= $this->home_model->getDiscordInfo()['code'] ?>" data-analytics="panel-<?=$this->lang->line('serv_status');?>" data-analytics-panel="slot:1 - size:lg" class="Home-topStoriesFeaturedLink">
+                                        <a target="_blank" href="https://discord.gg/<?= $this->home_model->getDiscordInfo()['code'] ?>" data-analytics="panel-<?=$this->lang->line('home_server_status');?>" data-analytics-panel="slot:1 - size:lg" class="Home-topStoriesFeaturedLink">
                                             <div data-ratio='0.5' data-offset='0' class="Card Home-topStoriesGallery Card--innerBorder Card--transparent is-adaptive">
                                                 <div class="Home-additionalLinks clearfix">
                                                     <div class="GridItem col-md-12">
@@ -283,7 +287,7 @@
                         <?php if ($this->m_modules->getStatusEvents() == '1') { ?>
                             <?php if ($this->events_model->getEventsLimitFive()->num_rows()) { ?>
                                 <div class="GridItem col-md-4">
-                                    <h2 class="Heading Home-eventsHeading Home-sectionHeading flush-top" style="color: #fff;"><i class="fa fa-bullhorn" aria-hidden="true"></i> <?= $this->lang->line('up_events'); ?></h2>
+                                    <h2 class="Heading Home-eventsHeading Home-sectionHeading flush-top" style="color: #fff;"><i class="fa fa-bullhorn" aria-hidden="true"></i> <?= $this->lang->line('home_up_events'); ?></h2>
                                     <div class="Divider Divider--light"></div>
                                     <div class="Home-eventsTableWrapper">
                                         <div class="Home-eventsTable">
@@ -323,7 +327,7 @@
                         <?php if ($this->shop_model->getShopTop10()->num_rows()) { ?>
                             <h2 class="Heading Home-gameHeading Home-sectionHeading flush-top">
                                 <a href="<?= base_url('store'); ?>" data-analytics="action-link" data-analytics-placement="<?= $this->lang->line('store_see'); ?>" class="Home-gameHeadingLink Home-sectionHeadingLink">
-                                    <span class="Home-gameHeadingText Home-sectionHeadingText"><i class="fa fa-shopping-bag" aria-hidden="true"></i> <?= $this->lang->line('store'); ?></span>
+                                    <span class="Home-gameHeadingText Home-sectionHeadingText"><i class="fa fa-shopping-bag" aria-hidden="true"></i> <?= $this->lang->line('home_store_top'); ?></span>
                                 </a>
                             </h2>
                             <div class="Divider Divider--light"></div>
