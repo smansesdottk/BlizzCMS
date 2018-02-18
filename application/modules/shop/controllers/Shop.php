@@ -29,6 +29,10 @@ class Shop extends MX_Controller {
 
         $this->load->config('store');
 
+        $data['fxtitle'] = $this->lang->line('nav_store');
+        
+        $this->load->view('header', $data);
+
         if($this->config->item('shopStyle') == 1)
             $this->load->view('index1', $data);
         else
@@ -46,6 +50,9 @@ class Shop extends MX_Controller {
             redirect(base_url('store'),'refresh');
 
         $data['idlink'] = $id;
+        $data['fxtitle'] = $this->lang->line('nav_store');
+        
+        $this->load->view('header', $data);
 
         if (isset($_GET['tp']))
         {
@@ -73,6 +80,9 @@ class Shop extends MX_Controller {
         if (!$this->m_data->isLogged())
             redirect(base_url('login'),'refresh');
 
+        $data['fxtitle'] = $this->lang->line('nav_ticket');
+        
+        $this->load->view('header', $data);
         $this->load->view('ticket');
         $this->load->view('footer');
     }

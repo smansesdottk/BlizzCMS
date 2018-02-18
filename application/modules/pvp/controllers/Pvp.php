@@ -25,6 +25,9 @@ class Pvp extends MX_Controller {
 
     public function index()
     {
+        $data['fxtitle'] = $this->lang->line('nav_pvp_statistics');
+        
+        $this->load->view('header', $data);
         $this->load->view('index');
         $this->load->view('footer');
     }

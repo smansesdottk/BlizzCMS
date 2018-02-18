@@ -22,6 +22,10 @@ class User extends MX_Controller {
         if ($this->m_data->isLogged())
             redirect(base_url(),'refresh');
 
+        $data['fxtitle'] = $this->lang->line('nav_login');
+        
+        $this->load->view('header', $data);
+
         if ($this->m_general->getExpansionAction() == 1)
         {
             $data = array(
@@ -145,6 +149,9 @@ class User extends MX_Controller {
 
         $this->load->library('recaptcha');
 
+        $data['fxtitle'] = $this->lang->line('nav_register');
+        
+        $this->load->view('header', $data);
         $this->load->view('register');
         $this->load->view('footer');
     }
@@ -167,8 +174,12 @@ class User extends MX_Controller {
         if (!$this->m_data->isLogged())
             redirect(base_url(),'refresh');
 
+        $data['fxtitle'] = $this->lang->line('nav_account');
+        
+        $this->load->view('header', $data);
         $this->load->view('panel');
         $this->load->view('footer');
+        $this->load->view('modal');
     }
 
     public function profile($id)
@@ -185,8 +196,11 @@ class User extends MX_Controller {
         }
 
         $data['idlink'] = $id;
-
+        $data['fxtitle'] = $this->lang->line('nav_profile');
+        
+        $this->load->view('header', $data);
         $this->load->view('profile', $data);
         $this->load->view('footer');
+        $this->load->view('modal');
     }
 }

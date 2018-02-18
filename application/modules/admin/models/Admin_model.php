@@ -359,7 +359,7 @@ class Admin_model extends CI_Model {
 
     public function insertCustomizeChar($id, $multirealm, $idrealm)
     {
-        if ($this->m_general->getCharActive($id, $multirealm) == '1')
+        if ($this->m_characters->getCharActive($id, $multirealm) == '1')
             redirect(base_url().'admin/managecharacter/'.$id.'/'.$idrealm.'?char','refresh');
 
         $date 		= $this->m_data->getTimestamp();
@@ -464,7 +464,7 @@ class Admin_model extends CI_Model {
 
     public function insertChangeFactionChar($id, $multirealm, $idrealm)
     {
-        if ($this->m_general->getCharActive($id, $multirealm) == '1')
+        if ($this->m_characters->getCharActive($id, $multirealm) == '1')
             redirect(base_url().'admin/managecharacter/'.$id.'/'.$idrealm.'?char','refresh');
 
         $date 		= $this->m_data->getTimestamp();
@@ -489,7 +489,7 @@ class Admin_model extends CI_Model {
 
     public function insertChangeRaceChar($id, $multirealm, $idrealm)
     {
-        if ($this->m_general->getCharActive($id, $multirealm) == '1')
+        if ($this->m_characters->getCharActive($id, $multirealm) == '1')
             redirect(base_url().'admin/managecharacter/'.$id.'/'.$idrealm.'?char','refresh');
 
         $date 		= $this->m_data->getTimestamp();
@@ -535,14 +535,14 @@ class Admin_model extends CI_Model {
 
     public function insertCharRename($id, $name, $multirealm, $realm)
     {
-        if ($this->m_general->getCharActive($id, $multirealm) == '1')
+        if ($this->m_characters->getCharActive($id, $multirealm) == '1')
             redirect(base_url().'admin/managecharacter/'.$id.'/'.$realm.'?char','refresh');
 
-        if ($this->m_general->getCharNameAlreadyExist($name, $multirealm)->num_rows())
+        if ($this->m_characters->getCharNameAlreadyExist($name, $multirealm)->num_rows())
             redirect(base_url().'admin/managecharacter/'.$id.'/'.$realm.'?name','refresh');
 
         $date 		= $this->m_data->getTimestamp();
-        $annotation = $this->lang->line('char_newname').' -> '.$name.' | '.$this->lang->line('char_oldname').' -> '.$this->m_general->getCharName($id, $multirealm);
+        $annotation = $this->lang->line('char_newname').' -> '.$name.' | '.$this->lang->line('char_oldname').' -> '.$this->m_characters->getCharName($id, $multirealm);
 
         $data = array(
                 'idchar' => $id,
@@ -563,11 +563,11 @@ class Admin_model extends CI_Model {
 
     public function insertChangeLevelChar($id, $level, $multirealm, $realm)
     {
-        if ($this->m_general->getCharActive($id, $multirealm) == '1')
+        if ($this->m_characters->getCharActive($id, $multirealm) == '1')
             redirect(base_url().'admin/managecharacter/'.$id.'/'.$realm.'?char','refresh');
 
         $date 		= $this->m_data->getTimestamp();
-        $annotation = $this->lang->line('char_newlevel').' -> '.$level.' | '.$this->lang->line('char_oldlevel').' -> '.$this->m_general->getCharLevel($id, $multirealm);
+        $annotation = $this->lang->line('char_newlevel').' -> '.$level.' | '.$this->lang->line('char_oldlevel').' -> '.$this->m_characters->getCharLevel($id, $multirealm);
 
         $data = array(
                 'idchar' => $id,
@@ -801,27 +801,28 @@ class Admin_model extends CI_Model {
         $fileHandle = explode(";", $fileHandle);
         return str_replace("'", "", $fileHandle[0]);
     }
+
     //fixcore
     public function settingFixCore($data)
     {
         $filename = $data['filename'];
 
         $Configsearch = array(
-            $data['fixcoreName'],
-            $data['fixcoreTimeZone'],
-            $data['fixcoreDiscord'],
-            $data['fixcoreRealmlist'],
-            $data['fixcoreStaffColor'],
-            $data['fixcoreThemeName']
-        );
-
-        $Configreplace = array(
             $data['actualName'],
             $data['actualTimeZone'],
             $data['actualDiscord'],
             $data['actualRealmlist'],
             $data['actualStaffColor'],
             $data['actualTheme']
+        );
+
+        $Configreplace = array(
+            $data['fixcoreName'],
+            $data['fixcoreTimeZone'],
+            $data['fixcoreDiscord'],
+            $data['fixcoreRealmlist'],
+            $data['fixcoreStaffColor'],
+            $data['fixcoreThemeName']
         );
 
         $fileConfig = file_get_contents($filename);
@@ -879,5 +880,273 @@ class Admin_model extends CI_Model {
         $fileHandle = substr($fileHandle[96], 25);
         $fileHandle = explode(";", $fileHandle);
         return str_replace('"', "", $fileHandle[0]);
+    }
+
+    //database
+    public function settingDatabase($data)
+    {
+        $filename = $data['filename'];
+
+        $Configsearch = array(
+            $data['actualdbCmsHost'],
+            $data['actualdbCmsUser'],
+            $data['actualdbCmsPassword'],
+            $data['actualdbCmsdbName'],
+            $data['actualdbAuthHost'],
+            $data['actualdbAuthUser'],
+            $data['actualdbAuthPassword'],
+            $data['actualdbAuthName']
+        );
+
+        $Configreplace = array(
+            $data['dbCmsHost'],
+            $data['dbCmsUser'],
+            $data['dbCmsPassword'],
+            $data['dbCmsName'],
+            $data['dbAuthHost'],
+            $data['dbAuthUser'],
+            $data['dbAuthPassword'],
+            $data['dbAuthName']
+        );
+
+        $fileConfig = file_get_contents($filename);
+        $newConfig = str_replace($Configsearch, $Configreplace, $fileConfig);
+        $openConfig = fopen($filename,"w");
+        fwrite($openConfig, $newConfig);
+        fclose($openConfig);
+
+        redirect(base_url('admin/settings'),'refresh');
+    }
+
+    public function getDatabaseCmsHost($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[8], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    public function getDatabaseCmsUser($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[9], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    public function getDatabaseCmsPassword($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[10], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    public function getDatabaseCmsName($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[11], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    public function getDatabaseAuthHost($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[30], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    public function getDatabaseAuthUser($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[31], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    public function getDatabaseAuthPassword($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[32], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    public function getDatabaseAuthName($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[33], 16);
+        $fileHandle = explode(",", $fileHandle);
+        return str_replace("'", "", $fileHandle[0]);
+    }
+
+    //recaptcha
+    public function settingRecaptcha($data)
+    {
+        $filename = $data['filename'];
+
+        $Configsearch = array(
+            $data['actualrecaptchaKey'],
+            $data['actualrecaptchaPrivateKey'],
+            $data['actualrecaptchaLang']
+        );
+
+        $Configreplace = array(
+            $data['recaptchaKey'],
+            $data['recaptchaPrivateKey'],
+            $data['recaptchaLang']
+        );
+
+        $fileConfig = file_get_contents($filename);
+        $newConfig = str_replace($Configsearch, $Configreplace, $fileConfig);
+        $openConfig = fopen($filename,"w");
+        fwrite($openConfig, $newConfig);
+        fclose($openConfig);
+
+        redirect(base_url('admin/settings'),'refresh');
+    }
+
+    public function getRecaptchaKey($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[14], 32);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    public function getRecaptchaPrivateKey($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[15], 34);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    public function getRecaptchaLang($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[16], 19);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    //bugtracker
+    public function settingBugtracker($data)
+    {
+        $filename = $data['filename'];
+
+        $Configsearch = array(
+            $data['actualbugtrackerText']
+        );
+
+        $Configreplace = array(
+            $data['bugtrackerText']
+        );
+
+        $fileConfig = file_get_contents($filename);
+        $newConfig = str_replace($Configsearch, $Configreplace, $fileConfig);
+        $openConfig = fopen($filename,"w");
+        fwrite($openConfig, $newConfig);
+        fclose($openConfig);
+
+        redirect(base_url('admin/settings'),'refresh');
+    }
+
+    public function getBugtrackerText($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[11], 23);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    //donate
+    public function settingDonate($data)
+    {
+        $filename = $data['filename'];
+
+        $Configsearch = array(
+            $data['actualdonateKey'],
+            $data['actualdonatePrivateKey'],
+            $data['actualdonateWidgetCode']
+        );
+
+        $Configreplace = array(
+            $data['donateKey'],
+            $data['donatePrivateKey'],
+            $data['donateWidgetCode']
+        );
+
+        $fileConfig = file_get_contents($filename);
+        $newConfig = str_replace($Configsearch, $Configreplace, $fileConfig);
+        $openConfig = fopen($filename,"w");
+        fwrite($openConfig, $newConfig);
+        fclose($openConfig);
+
+        redirect(base_url('admin/settings'),'refresh');
+    }
+
+    public function getDonateKey($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[11], 38);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    public function getDonatePrivateKey($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[12], 37);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    public function getDonateWidgetCode($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[13], 38);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    //store
+    public function settingStore($data)
+    {
+        $filename = $data['filename'];
+
+        $Configsearch = array(
+            $data['actualstoreType']
+        );
+
+        $Configreplace = array(
+            $data['storeType']
+        );
+
+        $fileConfig = file_get_contents($filename);
+        $newConfig = str_replace($Configsearch, $Configreplace, $fileConfig);
+        $openConfig = fopen($filename,"w");
+        fwrite($openConfig, $newConfig);
+        fclose($openConfig);
+
+        redirect(base_url('admin/settings'),'refresh');
+    }
+
+    public function getStoreType($filename)
+    {
+        $fileHandle = file($filename);
+        $fileHandle = substr($fileHandle[14], 24);
+        $fileHandle = explode(";", $fileHandle);
+        return str_replace('"', "", $fileHandle[0]);
+    }
+
+    public function delSpecifyRealm($id)
+    {
+        $this->db->where('id', $id)
+                ->delete('fx_realms');
+                
+        redirect(base_url('admin/settings'),'refresh');
     }
 }

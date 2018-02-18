@@ -25,6 +25,9 @@ class Changelogs extends MX_Controller {
 
     public function index()
     {
+        $data['fxtitle'] = $this->lang->line('nav_changelogs');
+        
+        $this->load->view('header', $data);
         $this->load->view('changelogs/index');
         $this->load->view('footer');
     }
@@ -35,7 +38,9 @@ class Changelogs extends MX_Controller {
             redirect(base_url(),'refresh');
 
         $data['idlink'] = $id;
+        $data['fxtitle'] = $this->lang->line('nav_changelogs');
 
+        $this->load->view('header', $data);
         $this->load->view('changelogs/changelog', $data);
         $this->load->view('footer');
     }
